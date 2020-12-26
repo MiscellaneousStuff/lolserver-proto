@@ -1,0 +1,76 @@
+syntax = "proto2";
+
+package LoLAPIProtocol;
+
+/*
+Request / Response
+*/
+
+message Request {
+    oneof request {
+        // Game Setup
+        RequestClientsJoin clients_join = 1;
+        RequestGameStarted game_started = 2;
+        RequestStartObserving start_observing = 3;
+
+        // During Game
+        RequestObservation observation = 4;
+        RequestAction action = 5;
+        RequestBroadcastChat broadcast_chat = 6;
+    }
+}
+
+message Response {
+    oneof response {
+        // Game Setup
+        ResponseClientsJoin clients_join = 1;
+        ResponseGameStarted game_started = 2;
+        ResponseStartObserving start_observing = 3;
+
+        // During Game
+        ResponseObservation observation = 4;
+        ResponseAction action = 5;
+        ResponseBroadcastChat broadcast_chat = 6;
+    }
+}
+
+/*
+Request/Response Defintions
+*/
+
+message RequestClientsJoin {}
+message ResponseClientsJoin {}
+
+message RequestGameStarted {}
+message ResponseGameStarted {}
+
+message RequestStartObserving {}
+message ResponseStartObserving {}
+
+
+message RequestObservation {}
+message ResponseObservation {
+    repeated Observation observations = 1;
+}
+
+message RequestAction {
+    repeated Action actions = 1;
+}
+message ResponseAction {}
+
+message RequestBroadcastChat {
+    optional string message = 1;
+}
+message ResponseBroadcastChat {}
+
+/*
+Core Message Definitions
+*/
+
+message Observation {
+    optional string observation = 1;
+}
+
+message Action {
+    optional string action = 1;
+}
